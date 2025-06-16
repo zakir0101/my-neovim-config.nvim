@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 -- check path exist :
 local path = nil
 if vim.fn.isdirectory('D:\\Projects\\avante.nvim') ~= 0 then
