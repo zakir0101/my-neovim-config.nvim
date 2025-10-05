@@ -32,7 +32,13 @@ local state = {
 --
 local function sleep(n)
   if n > 0 then
-    os.execute('ping -n ' .. tonumber(n + 1) .. ' localhost > NUL')
+    -- Cross-platform sleep using uv timer
+    local timer = uv.new_timer()
+    timer:start(n * 1000, 0, function()
+      timer:close()
+    end)
+    -- Block until timer completes
+    uv.run('once')
   end
 end
 -- Utility: Ensure directory exists
@@ -134,9 +140,9 @@ end
 
 -- Initialize .genai directory and prompt file if needed
 local function init_genai()
-  state.genai_dir = state.project_dir .. '\\.genai'
-  state.prompt_path = state.genai_dir .. '\\prompt.md'
-  state.current_chat_file = state.genai_dir .. '\\chat_' .. get_last_index() .. '.md'
+  state.genai_dir = state.project_dir .. '/.genai'
+  state.prompt_path = state.genai_dir .. '/prompt.md'
+  state.current_chat_file = state.genai_dir .. '/chat_' .. get_last_index() .. '.md'
   ensure_dir(state.genai_dir)
 end
 -- If windows are active and valid, hide them without closing buffers and return
@@ -416,7 +422,7 @@ end, {
 
 function M.open_chat(chat_file_name)
   -- Construct full path to the chat file
-  local full_path = state.genai_dir .. '\\' .. chat_file_name
+  local full_path = state.genai_dir .. '/' .. chat_file_name
   if not uv.fs_stat(full_path) then
     print('Chat file does not exist: ' .. full_path)
     return
