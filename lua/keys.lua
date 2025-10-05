@@ -1,4 +1,14 @@
 local Utils = require('util')
+
+-- Navigation Mode System
+-- This system provides three navigation modes that can be switched between:
+-- 1. TABS mode: Navigate between tabs
+-- 2. LocList mode: Navigate location lists (buffer-specific diagnostics)
+-- 3. QuickList mode: Navigate quickfix lists (project-wide diagnostics)
+--
+-- Use keys: mt (tabs), ml (loclist), mq (quicklist) to switch modes
+-- Then use <C-A-hjkl> to navigate in the current mode
+
 local NAVIGATION_TAPS_MODE = 1
 local NAVIGATION_LOC_LIST_MODE = 2
 local NAVIGATION_QUICK_LIST_MODE = 3
@@ -59,43 +69,42 @@ function M.setup_fix_list_navigation_keybind()
       print('set navigation to ' .. MODE_NAMES[NAVIGATION_LOC_LIST_MODE] .. ' mode')
     end
     current_mode = NAVIGATION_LOC_LIST_MODE
-  end, { desc = '' })
+  end, { desc = 'Switch to Location List navigation mode' })
 
   vim.keymap.set('n', 'mq', function()
     if current_mode ~= NAVIGATION_QUICK_LIST_MODE then
       print('set navigation to ' .. MODE_NAMES[NAVIGATION_QUICK_LIST_MODE] .. ' mode')
     end
     current_mode = NAVIGATION_QUICK_LIST_MODE
-  end, { desc = '' })
+  end, { desc = 'Switch to QuickFix List navigation mode' })
 
   vim.keymap.set('n', 'mt', function()
     if current_mode ~= NAVIGATION_TAPS_MODE then
       print('set navigation to ' .. MODE_NAMES[NAVIGATION_TAPS_MODE] .. ' mode')
     end
     current_mode = NAVIGATION_TAPS_MODE
-  end, { desc = '' })
+  end, { desc = 'Switch to Tabs navigation mode' })
 
-  -- HJKL mapping
-  -- ***
+  -- HJKL mapping for navigation in current mode
   local h_map = { 'tabprevious', 'lpfile', 'cpfile' }
   vim.keymap.set('n', '<C-A-h>', function()
     pcall(call_cmd, h_map[current_mode])
-  end, { desc = '' })
-  -- **
+  end, { desc = 'Navigate left/previous in current mode' })
+
   local l_map = { 'tabnext', 'lnfile', 'cnfile' }
   vim.keymap.set('n', '<C-A-l>', function()
     pcall(call_cmd, l_map[current_mode])
-  end, { desc = '' })
-  -- **
+  end, { desc = 'Navigate right/next in current mode' })
+
   local k_map = { 'tabfirst', 'labove', 'cabove' }
   vim.keymap.set('n', '<C-A-k>', function()
     pcall(call_cmd, k_map[current_mode])
-  end, { desc = '' })
-  -- **
+  end, { desc = 'Navigate up/above in current mode' })
+
   local j_map = { 'tablast', 'lbelow', 'cbelow' }
   vim.keymap.set('n', '<C-A-j>', function()
     pcall(call_cmd, j_map[current_mode])
-  end, { desc = '' })
+  end, { desc = 'Navigate down/below in current mode' })
   -- quick fix: navigation
   -- vim.keymap.set('n', '<A-1>', '<cmd>cprevious<cr>', { desc = 'Move to previous Quick Fix' })
   -- vim.keymap.set('n', '<A-2>', '<cmd>cnext<cr>', { desc = 'Move to next Quick Fix' })
