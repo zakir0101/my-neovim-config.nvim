@@ -257,8 +257,6 @@ function M.reduce_diagnostics(diagnostics)
           acc[key].text = prefix .. item.text
         elseif not is_custom then
           local sub = item.text:gsub('%[col %d+%]%s*', '', 1)
-          print('original: ', item.text)
-          print('sub: ', sub)
           local is_new = not acc[key].text:find(sub)
           if is_new then
             acc[key].text = acc[key].text .. ', ' .. prefix .. item.text
