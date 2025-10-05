@@ -15,6 +15,10 @@ local ensure_installed_ls = {
   'prettier',
   'emmet-language-server',
   'powershell_es',
+  -- linting
+  'markdownlint',
+  -- AI
+  'copilot',
 }
 local USE_BLINK = true
 -- vim.lsp.config('*', {

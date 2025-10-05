@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nbackup: current state before cleanup\n\nPreserving current configuration state including:\n- All modified files with permission changes\n- Current plugin configurations\n- Intentionally deactivated AI plugins\n- Experimental and TODO code\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\ncleanup: remove deprecated code\n\n- Remove deprecated functions from _old.lua (marked as deprecated)\n- Remove commented code blocks in init.lua that were no longer needed\n- Preserve intentionally deactivated AI plugins with clear warnings\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfix: cross-platform compatibility\n\n- Replace Windows path separators (\\) with cross-platform (/)\n- Replace Windows-specific ping command with uv timer for sleep\n- Ensure AI plugin works on both Linux and Windows\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\ndocs: complete README with plugin documentation\n\n- Add comprehensive plugin categories and descriptions\n- Document key features including navigation system\n- Add cross-platform setup instructions\n- Include platform-specific notes for Linux and Windows\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []
