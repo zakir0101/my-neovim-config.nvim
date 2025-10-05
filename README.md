@@ -26,9 +26,9 @@ A modular Neovim configuration built with lazy.nvim for optimal performance. Thi
 - **Context**: Context-aware navigation
 
 ### AI & Code Assistance
-- **Experimental AI**: Custom AI chat interface (deactivated)
-- **Copilot**: GitHub Copilot integration
-- **Avante**: Additional AI assistance
+- **sidekick.nvim**: Unified AI assistant with Copilot LSP integration
+- **Next Edit Suggestions**: AI-powered code completion and suggestions
+- **AI CLI Tools**: Integrated access to AI command-line tools
 
 ### Version Control
 - **Git Integration**: gitsigns.nvim
@@ -74,12 +74,24 @@ A modular Neovim configuration built with lazy.nvim for optimal performance. Thi
 - QuickFix and Location List management
 - Severity-based filtering
 
+### AI Features
+- **AI Assistant**: `<leader>aa` - Open AI CLI tools and assistant
+- **Next Edit Suggestions**: `<leader>an` - Toggle AI-powered code suggestions
+- **Copilot LSP**: Integrated GitHub Copilot language server
+- **Context Awareness**: AI assistance based on current code context
+
 ## Setup
 
 1. Clone this repository to your Neovim config directory
 2. Ensure you have Neovim 0.10+ installed
 3. Run `:checkhealth` to verify system requirements
 4. The configuration will automatically install plugins on first run
+
+### AI Setup (Required for sidekick.nvim)
+1. Install Copilot LSP: `:MasonInstall copilot`
+2. Sign in to Copilot: `:LspCopilotSignIn`
+3. Check AI health: `:checkhealth sidekick`
+4. Test AI features: Type code and pause for suggestions, or use `<leader>aa`
 
 ## Platform Notes
 
