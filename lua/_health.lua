@@ -33,9 +33,77 @@ local check_external_reqs = function()
   return true
 end
 
+local function check_platform_specific()
+  local uv = vim.uv or vim.loop
+  local uname = uv.os_uname()
+  local is_windows = uname.sysname:lower():find('windows')
+
+  if is_windows then
+    -- Check Windows-specific requirements
+    for _, exe in ipairs { 'powershell.exe', 'pwsh.exe' } do
+      local is_executable = vim.fn.executable(exe) == 1
+      if is_executable then
+        vim.health.ok(string.format("Found Windows shell: '%s'", exe))
+      else
+        vim.health.warn(string.format("Could not find Windows shell: '%s'", exe))
+      end
+    end
+  else
+    -- Check Linux-specific requirements
+    for _, exe in ipairs { 'zsh', 'bash' } do
+      local is_executable = vim.fn.executable(exe) == 1
+      if is_executable then
+        vim.health.ok(string.format("Found Linux shell: '%s'", exe))
+      else
+        vim.health.warn(string.format("Could not find Linux shell: '%s'", exe))
+      end
+    end
+  end
+end
+
+local function check_plugin_dependencies()
+  -- Check for common plugin dependencies
+  local dependencies = {
+    { name = 'git', required = true, purpose = 'Version control and plugin management' },
+    { name = 'node', required = false, purpose = 'Some LSP servers and tools' },
+    { name = 'python3', required = false, purpose = 'Python language support' },
+    { name = 'cargo', required = false, purpose = 'Rust language support' },
+  }
+
+  for _, dep in ipairs(dependencies) do
+    local is_executable = vim.fn.executable(dep.name) == 1
+    if is_executable then
+      vim.health.ok(string.format("Found dependency: '%s' (%s)", dep.name, dep.purpose))
+    elseif dep.required then
+      vim.health.error(string.format("Missing required dependency: '%s' (%s)", dep.name, dep.purpose))
+    else
+      vim.health.warn(string.format("Missing optional dependency: '%s' (%s)", dep.name, dep.purpose))
+    end
+  end
+end
+
+local function check_configuration()
+  -- Check if key configuration files exist
+  local config_files = {
+    'init.lua',
+    'lua/options.lua',
+    'lua/keys.lua',
+    'lua/plugins/lsp/lsp-manager.lua',
+  }
+
+  for _, file in ipairs(config_files) do
+    local exists = vim.fn.filereadable(file) == 1
+    if exists then
+      vim.health.ok(string.format("Configuration file exists: '%s'", file))
+    else
+      vim.health.error(string.format("Missing configuration file: '%s'", file))
+    end
+  end
+end
+
 return {
   check = function()
-    vim.health.start 'kickstart.nvim'
+    vim.health.start 'My Neovim Configuration'
 
     vim.health.info [[NOTE: Not every warning is a 'must-fix' in `:checkhealth`
 
@@ -48,5 +116,8 @@ return {
 
     check_version()
     check_external_reqs()
+    check_platform_specific()
+    check_plugin_dependencies()
+    check_configuration()
   end,
 }
