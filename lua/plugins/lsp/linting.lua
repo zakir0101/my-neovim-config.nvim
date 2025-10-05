@@ -1,19 +1,4 @@
-local ale = {
-  'dense-analysis/ale',
-  config = function()
-    -- Configuration goes here.
-    local g = vim.g
-
-    -- g.ale_ruby_rubocop_auto_correct_all = 1
-
-    g.ale_linters = {
-      -- ruby = { 'rubocop', 'ruby' },
-      -- lua = { 'lua_language_server' },
-      python = { 'flake8', 'mypy' },
-    }
-  end,
-}
-local nvim_lint = { -- Linting
+return { -- Linting
   'mfussenegger/nvim-lint',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
@@ -70,5 +55,3 @@ local nvim_lint = { -- Linting
     })
   end,
 }
-
-return {}
