@@ -17,8 +17,6 @@ local ensure_installed_ls = {
   'powershell_es',
   -- linting
   'markdownlint',
-  -- AI
-  'copilot',
 }
 local USE_BLINK = true
 -- vim.lsp.config('*', {
@@ -59,6 +57,17 @@ return {
     },
 
     config = function()
+      -- Load custom LSP server configs
+      local function load_lsp_config(server_name)
+        local ok, config = pcall(require, 'lsp.' .. server_name)
+        if ok then
+          vim.lsp.config(server_name, config)
+        end
+      end
+
+      -- Load custom configs for servers
+      load_lsp_config('tailwindcss')
+      
       local setup_an_lsp = function(server_name)
         -- print('SERVER_NAME: ', server_name)
         if USE_BLINK then
@@ -66,7 +75,7 @@ return {
           local user_capabilities = (vim.lsp.config[server_name] or {}).capabilities or {}
           local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
           local final_capabilities = vim.tbl_deep_extend('force', default_capabilities, blink_capabilities, user_capabilities)
-          local all_config = vim.lsp.config[server_name]
+          local all_config = vim.lsp.config[server_name] or {}
           all_config.capabilities = final_capabilities
           vim.lsp.config(server_name, all_config)
           if false and server_name == 'pyright' then

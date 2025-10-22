@@ -1,17 +1,4 @@
 -- Copilot LSP configuration for sidekick.nvim
-vim.lsp.config('copilot', {
-  on_attach = function(client, bufnr)
-    -- Enable completion capabilities
-    client.server_capabilities.completionProvider = true
-    client.server_capabilities.workspace = {
-      workspaceFolders = true,
-      configuration = true,
-    }
-  end,
-  settings = {
-    -- Optional: Configure Copilot settings here
-  },
-})
-
--- Enable Copilot LSP
-vim.lsp.enable('copilot')
+-- Note: Copilot is now managed through sidekick.nvim plugin
+-- This file is disabled to prevent autocommand nesting issues
+-- Remove copilot from ensure_installed_ls in lsp-manager.lua

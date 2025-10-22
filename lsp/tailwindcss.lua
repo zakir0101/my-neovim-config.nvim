@@ -52,8 +52,7 @@ local function escape_wildcards(path)
 end
 
 function M.tbl_flatten(t)
-  --- @diagnostic disable-next-line:deprecated
-  return nvim_eleven and vim.iter(t):flatten(math.huge):totable() or vim.tbl_flatten(t)
+  return vim.iter(t):flatten(math.huge):totable()
 end
 function M.root_pattern(...)
   local patterns = M.tbl_flatten({ ... })

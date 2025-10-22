@@ -12,7 +12,13 @@ return {
     config = function()
       vim.keymap.set('n', '<leader>ts', '<cmd>TailwindSort<CR>')
       vim.keymap.set('n', '<leader>tc', '<cmd>TailwindConcealToggle<CR>')
-      require('tailwind-tools').setup({})
+      require('tailwind-tools').setup({
+        server = {
+          -- Disable automatic LSP setup since we'll handle it manually
+          -- This prevents the deprecated lspconfig usage
+          override = false,
+        },
+      })
     end,
   },
 }

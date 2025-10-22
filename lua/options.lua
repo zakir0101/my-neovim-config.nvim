@@ -23,6 +23,12 @@ function M.setup()
   vim.opt.list = true
   vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
   vim.opt.inccommand = 'split'
+
+  -- Tab settings for consistent indentation
+  vim.opt.expandtab = true -- Convert tabs to spaces
+  vim.opt.tabstop = 2 -- Number of spaces that a <Tab> counts for
+  vim.opt.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
+  vim.opt.softtabstop = 2 -- Number of spaces that a <Tab> counts for while editing
   vim.opt.cursorline = true
   vim.opt.scrolloff = 10
 end
