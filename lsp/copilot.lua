@@ -1,4 +1,0 @@
--- Copilot LSP configuration for sidekick.nvim
--- Note: Copilot is now managed through sidekick.nvim plugin
--- This file is disabled to prevent autocommand nesting issues
--- Remove copilot from ensure_installed_ls in lsp-manager.lua

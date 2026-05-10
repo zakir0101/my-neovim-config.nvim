@@ -34,7 +34,7 @@ return {
 
     -- Next Edit Suggestions (Copilot-powered)
     next_edit_suggestions = {
-      enabled = true,
+      enabled = false,
       debounce = 100, -- Updated to default value
       sign_group = 'sidekick',
     },
@@ -136,4 +136,3 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects', -- for context variables
   },
 }
-

@@ -65,7 +65,7 @@ require('lazy').setup({
     { import = 'plugins.ui' },
     { import = 'plugins.file-manager' },
     { import = 'plugins.version-control' },
-    { import = 'plugins.ai' },
+    -- { import = 'plugins.ai' },
     { import = 'plugins.specific' },
     { import = 'plugins.others' },
     -- files =>
